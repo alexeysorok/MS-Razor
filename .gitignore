@@ -261,3 +261,7 @@ __pycache__/
 *.pyc
 MS-Razor/Migrations/20190210143818_initial.Designer.cs
 MS-Razor/Migrations/20190210143818_initial.cs
+MS-Razor/Migrations/20190210162322_Rating.cs
+MS-Razor/Migrations/20190210162322_Rating.Designer.cs
+MS-Razor/Migrations/MS_RazorContextModelSnapshot.cs
+
