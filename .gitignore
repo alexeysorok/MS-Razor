@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+MS-Razor/Migrations/20190210143818_initial.Designer.cs
+MS-Razor/Migrations/20190210143818_initial.cs
