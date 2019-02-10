@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MS_Razor.Models;
 
@@ -20,8 +21,28 @@ namespace MS_Razor.Pages.Movies
 
         public IList<Movie> Movie { get;set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; } //  текст для поиска 
+
+        // Requires using Microsoft.AspNetCore.Mvc.Rendering;
+        public SelectList Genres { get; set; } // дает возможность выбрать жанр 
+
+        [BindProperty(SupportsGet = true)]
+        public string MovieGenre { get; set; }
+
         public async Task OnGetAsync()
         {
+            //добавляем поиск на странице 
+            var movies = from m in _context.Movie
+                         select m;
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                movies = movies.Where(s => s.Title.Contains(SearchString));
+            }
+            // как выглядит строка поиска 
+            // https://localhost:5001/Movies?searchString=Ghost 
+
+
             Movie = await _context.Movie.ToListAsync();
         }
     }
