@@ -32,7 +32,12 @@ namespace MS_Razor.Pages.Movies
 
         public async Task OnGetAsync()
         {
-            //добавляем поиск на странице 
+            // Поиск по жанру (все жанры)
+            IQueryable<string> genreQuery = from m in _context.Movie
+                                            orderby m.Genre
+                                            select m.Genre;
+                        
+            //добавляем поиск на странице по жанру 
             var movies = from m in _context.Movie
                          select m;
             if (!string.IsNullOrEmpty(SearchString))
@@ -42,8 +47,14 @@ namespace MS_Razor.Pages.Movies
             // как выглядит строка поиска 
             // https://localhost:5001/Movies?searchString=Ghost 
 
+            if (!string.IsNullOrEmpty(MovieGenre))
+            {
+                movies.Where(x => x.Genre == MovieGenre);
+            }
 
-            Movie = await _context.Movie.ToListAsync();
+            // проецирование отдельных жанров
+            Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+            Movie = await movies.ToListAsync();
         }
     }
 }
