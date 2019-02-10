@@ -20,5 +20,7 @@ namespace MS_Razor.Models
 
         [Column(TypeName ="decimal(18, 2)")] // позволяет Entity Framework Core корректно сопоставить Price с валютой в базе данных
         public decimal Price { get; set; }
+
+        public string Rating { get; set; }
     }
 }
